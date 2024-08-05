@@ -8,7 +8,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CreateCarDto, UpdateCatDto, ListAllEntities } from './dto';
+import { CreateUserDto, UpdateUserDto, ListAllEntities } from './dto';
 
 @Controller('cars')
 export class CarsController {

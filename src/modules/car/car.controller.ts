@@ -8,28 +8,31 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CreateCarDto, UpdateCatDto, ListAllEntities } from './dto';
+import { CarListDto } from './dto/car.list.dto';
+import { CreateCarDto } from './dto/create.car.dto';
+import { CarService } from "./car.service";
 
 @Controller('cars')
 export class CarsController {
+  constructor(private readonly carService: CarService) {}
   @Post()
-  create(@Body() createCarDto: CreateCarDto) {
-    return 'This action adds a new car';
+  public async create(@Body() dto: CreateCarDto): Promise<CarResDto> {
+    return await this.carService.create(dto);
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
+  findAll(@Query() query: CarListDto) {
     return `This action returns all cars (limit: ${query.limit} items)`;
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns a #${id} cat`;
+    return `This action returns a #${id} car`;
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() createCarDto: CreateCarDto) {
-    return `This action updates a #${id} car`;
+  public async update(@Param('id') id: string, @Body() dto: CreateCarDto) {
+    return await this.carService.update(dto);
   }
 
   @Delete(':id')
